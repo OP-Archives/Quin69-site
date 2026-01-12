@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, Link, Grid } from "@mui/material";
 import CustomLink from "../utils/CustomLink";
 import Chapters from "./ChaptersMenu";
@@ -9,7 +8,7 @@ import { toHHMMSS } from "../utils/helpers";
 dayjs.extend(localizedFormat);
 
 export default function Vod(props) {
-  const { vod, gridSize } = props;
+  const { vod } = props;
 
   return vod.games.reverse().map((game, _) => {
     const gameLink = `/games/${vod.id}?game_id=${game.id}`;
@@ -19,7 +18,7 @@ export default function Vod(props) {
       gameDuration -= process.env.REACT_APP_DEFAULT_DELAY;
     }
     return (
-      <Grid key={game.id} item xs={gridSize} sx={{ maxWidth: "18rem", flexBasis: "18rem" }}>
+      <Grid key={game.id} sx={{ maxWidth: "20rem", flexBasis: "20rem" }}>
         <Box
           sx={{
             overflow: "hidden",
