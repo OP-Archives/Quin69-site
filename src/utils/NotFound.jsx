@@ -1,4 +1,4 @@
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import CustomLink from './CustomLink';
 import Logo from '../assets/logo.jpg';
