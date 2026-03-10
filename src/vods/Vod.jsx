@@ -1,4 +1,7 @@
-import { Box, Typography, Link, Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
 import CustomLink from '../utils/CustomLink';
 import GameImage from './GameImage';
 import CustomWidthTooltip from '../utils/CustomToolTip';
@@ -10,7 +13,7 @@ dayjs.extend(localizedFormat);
 export default function Vod(props) {
   const { vod } = props;
 
-  return vod.games.reverse().map((game, _) => {
+  return vod.games.reverse().map((game) => {
     const gameLink = `/games/${vod.id}?game_id=${game.id}`;
     let gameDuration = parseInt(game.end_time);
     //Edge case when there are two parts and exceed 12+ hours.

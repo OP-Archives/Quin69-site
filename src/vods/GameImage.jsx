@@ -1,4 +1,5 @@
-import { Box, Tooltip } from '@mui/material';
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import { getImage } from '../utils/helpers';
 
 export default function Chapters(props) {
