@@ -77,7 +77,7 @@ export default function App() {
                     </>
                   }
                 />
-                <Route exact path="/vods/:vodId" element={<YoutubeVod type="vod" logo={Logo} origin={origin} channel={channel} archiveApiBase={archiveApiBase} />} defaultDelay={defaultDelay} />
+                <Route exact path="/vods/:vodId" element={<YoutubeVod type="vod" logo={Logo} origin={origin} channel={channel} archiveApiBase={archiveApiBase} defaultDelay={defaultDelay} />} />
                 <Route exact path="/live/:vodId" element={<YoutubeVod type="live" logo={Logo} origin={origin} channel={channel} archiveApiBase={archiveApiBase} defaultDelay={defaultDelay} />} />
                 <Route exact path="/youtube/:vodId" element={<YoutubeVod logo={Logo} origin={origin} channel={channel} archiveApiBase={archiveApiBase} defaultDelay={defaultDelay} />} />
                 <Route exact path="/games/:vodId" element={<Games channel={channel} logo={Logo} origin={origin} archiveApiBase={archiveApiBase} />} />
