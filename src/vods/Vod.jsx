@@ -57,7 +57,10 @@ export default function Vod(props) {
             <Box sx={{ p: 0.5 }}>
               <CustomWidthTooltip title={vod.title} placement="top">
                 <span>
-                  <CustomLink href={gameLink} sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>
+                  <CustomLink
+                    href={gameLink}
+                    sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}
+                  >
                     <Typography variant="caption" color="primary" sx={{ fontWeight: '550' }}>
                       {game.title}
                     </Typography>
