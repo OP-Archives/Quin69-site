@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import CustomLink from '../utils/CustomLink';
 import GameImage from './GameImage';
 import CustomWidthTooltip from '../utils/CustomToolTip';
+import { toHHMMSS } from '../utils/helpers';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat.js';
 dayjs.extend(localizedFormat);
@@ -33,6 +34,11 @@ export default function Game(props) {
           <Box sx={{ position: 'absolute', bottom: 0, left: 0 }}>
             <Typography variant="caption" sx={{ p: 0.3, backgroundColor: 'rgba(0,0,0,.6)' }}>
               {dayjs(game.created_at).format('LL')}
+            </Typography>
+          </Box>
+          <Box sx={{ position: 'absolute', bottom: 0, right: 0 }}>
+            <Typography variant="caption" sx={{ p: 0.3, backgroundColor: 'rgba(0,0,0,.6)' }}>
+              {toHHMMSS(game.duration)}
             </Typography>
           </Box>
         </Box>

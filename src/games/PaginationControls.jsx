@@ -53,13 +53,7 @@ export default function PaginationControls({ page, totalPages, preserveParams })
             disabled={totalPages <= 1}
             color="primary"
             page={page}
-            renderItem={(item) => (
-              <PaginationItem
-                component={Link}
-                to={buildPageUrl(item.page)}
-                {...item}
-              />
-            )}
+            renderItem={(item) => <PaginationItem component={Link} to={buildPageUrl(item.page)} {...item} />}
           />
           <TextField
             sx={{ width: '100px', m: 1 }}
