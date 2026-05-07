@@ -6,20 +6,18 @@ import { styled } from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 import Loading from './utils/Loading';
 import ErrorBoundary from './utils/ErrorBoundary';
+import { Games } from '@op-archives/vod-components';
 import Logo from './assets/logo.jpg';
 
 const channel = import.meta.env.VITE_CHANNEL;
 const origin = import.meta.env.VITE_DOMAIN || window.location.origin;
 const archiveApiBase = import.meta.env.VITE_ARCHIVE_API_BASE;
-const defaultDelay = import.meta.env.VITE_DEFAULT_DELAY;
 const twitchId = import.meta.env.VITE_TWITCH_ID;
 
-const Vods = lazy(() => import('./vods/Vods'));
+const GamesPage = lazy(() => import('./games/Games'));
 const Navbar = lazy(() => import('./navbar/navbar'));
 const NotFound = lazy(() => import('./utils/NotFound'));
-const YoutubeVod = lazy(() => import('@op-archives/vod-components').then((m) => ({ default: m.YoutubeVod })));
-const CustomVod = lazy(() => import('@op-archives/vod-components').then((m) => ({ default: m.CustomVod })));
-const Games = lazy(() => import('@op-archives/vod-components').then((m) => ({ default: m.Games })));
+const GamesLibrary = lazy(() => import('./games/GamesLibrary'));
 
 export default function App() {
   let darkTheme = createTheme({
@@ -64,62 +62,28 @@ export default function App() {
                   element={
                     <>
                       <Navbar channel={channel} />
-                      <Vods />
+                      <GamesPage />
                     </>
                   }
                 />
                 <Route
                   exact
-                  path="/vods"
+                  path="/games"
                   element={
                     <>
                       <Navbar channel={channel} />
-                      <Vods />
+                      <GamesPage />
                     </>
                   }
                 />
                 <Route
                   exact
-                  path="/vods/:vodId"
+                  path="/games/library"
                   element={
-                    <YoutubeVod
-                      type="vod"
-                      logo={Logo}
-                      origin={origin}
-                      channel={channel}
-                      archiveApiBase={archiveApiBase}
-                      defaultDelay={defaultDelay}
-                      twitchId={twitchId}
-                    />
-                  }
-                />
-                <Route
-                  exact
-                  path="/live/:vodId"
-                  element={
-                    <YoutubeVod
-                      type="live"
-                      logo={Logo}
-                      origin={origin}
-                      channel={channel}
-                      archiveApiBase={archiveApiBase}
-                      defaultDelay={defaultDelay}
-                      twitchId={twitchId}
-                    />
-                  }
-                />
-                <Route
-                  exact
-                  path="/youtube/:vodId"
-                  element={
-                    <YoutubeVod
-                      logo={Logo}
-                      origin={origin}
-                      channel={channel}
-                      archiveApiBase={archiveApiBase}
-                      defaultDelay={defaultDelay}
-                      twitchId={twitchId}
-                    />
+                    <>
+                      <Navbar channel={channel} />
+                      <GamesLibrary />
+                    </>
                   }
                 />
                 <Route
@@ -130,19 +94,6 @@ export default function App() {
                       channel={channel}
                       logo={Logo}
                       origin={origin}
-                      archiveApiBase={archiveApiBase}
-                      twitchId={twitchId}
-                    />
-                  }
-                />
-                <Route
-                  exact
-                  path="/manual/:vodId"
-                  element={
-                    <CustomVod
-                      type="manual"
-                      logo={Logo}
-                      channel={channel}
                       archiveApiBase={archiveApiBase}
                       twitchId={twitchId}
                     />

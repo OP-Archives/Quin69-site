@@ -9,7 +9,8 @@ import CustomLink from '../utils/CustomLink';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import SvgIcon from '@mui/material/SvgIcon';
 import Drawer from './drawer';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import BookIcon from '@mui/icons-material/Book';
 import ReportIcon from '@mui/icons-material/Report';
 import RedditIcon from '@mui/icons-material/Reddit';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -82,11 +83,21 @@ export default function Navbar(props) {
           {!isMobile && (
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
               <Box sx={{ mr: 2 }}>
-                <CustomLink href="/vods">
+                <CustomLink href="/games">
                   <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <OndemandVideoIcon color="primary" sx={{ mr: 0.5 }} />
+                    <SportsEsportsIcon color="primary" sx={{ mr: 0.5 }} />
                     <Typography color="primary" variant="h6">
-                      Vods
+                      Games
+                    </Typography>
+                  </Box>
+                </CustomLink>
+              </Box>
+              <Box sx={{ mr: 2 }}>
+                <CustomLink href="/games/library">
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <BookIcon color="primary" sx={{ mr: 0.5 }} />
+                    <Typography color="primary" variant="h6">
+                      Library
                     </Typography>
                   </Box>
                 </CustomLink>

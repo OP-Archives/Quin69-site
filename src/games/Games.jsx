@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import PaginationItem from '@mui/material/PaginationItem';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
@@ -14,25 +12,27 @@ import MenuItem from '@mui/material/MenuItem';
 import SimpleBar from 'simplebar-react';
 import Footer from '../utils/Footer';
 import Loading from '../utils/Loading';
-import Vod from './Vod';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Game from './Game';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useDebouncedSetter } from '../utils/debounceHelper';
-import archiveClient from './client';
+import { listGames } from './client';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PaginationControls from './PaginationControls';
 
 const FILTERS = ['Default', 'Date', 'Game'];
 const START_DATE = import.meta.env.VITE_START_DATE;
 
-export default function Vods() {
+export default function GamesPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const isMobile = useMediaQuery('(max-width: 900px)');
-  const [vods, setVods] = useState(null);
-  const [totalVods, setTotalVods] = useState(null);
+  const [games, setGames] = useState(null);
+  const [totalGames, setTotalGames] = useState(null);
   const [filter, setFilter] = useState(FILTERS[0]);
   const [filterStartDate, setFilterStartDate] = useState(dayjs(START_DATE));
   const [filterEndDate, setFilterEndDate] = useState(dayjs());
@@ -41,96 +41,63 @@ export default function Vods() {
   const [loading, setLoading] = useState(false);
   const page = parseInt(query.get('page') || '1', 10);
   const limit = isMobile ? 10 : 20;
+  const gameId = query.get('game_id');
 
   useEffect(() => {
     setError(null);
     setLoading(true);
-    setVods(null);
+    setGames(null);
 
-    const fetchVods = async () => {
+    const fetchGames = async () => {
       try {
-        switch (filter) {
-          case 'Date':
-            if (filterStartDate > filterEndDate) {
-              setError('End date must be after start date');
-              setLoading(false);
-              return;
-            }
-            const dateResponse = await archiveClient.service('vods').find({
-              query: {
-                createdAt: {
-                  $gte: filterStartDate.toISOString(),
-                  $lte: filterEndDate.toISOString(),
-                },
-                $limit: limit,
-                $skip: (page - 1) * limit,
-                $sort: {
-                  createdAt: -1,
-                },
-              },
-            });
-            setVods(dateResponse.data);
-            setTotalVods(dateResponse.total);
-            break;
-          case 'Game':
-            if (filterGame.length === 0) {
-              setLoading(false);
-              return;
-            }
-            const gameResponse = await archiveClient.service('vods').find({
-              query: {
-                chapters: {
-                  name: filterGame,
-                },
-                $limit: limit,
-                $skip: (page - 1) * limit,
-                $sort: {
-                  createdAt: -1,
-                },
-              },
-            });
-            setVods(gameResponse.data);
-            setTotalVods(gameResponse.total);
-            break;
-          default:
-            const defaultResponse = await archiveClient.service('vods').find({
-              query: {
-                $limit: limit,
-                $skip: (page - 1) * limit,
-                $sort: {
-                  createdAt: -1,
-                },
-              },
-            });
-            setVods(defaultResponse.data);
-            setTotalVods(defaultResponse.total);
+        const params = { limit, page, sort: 'created_at', order: 'desc' };
+
+        if (gameId) {
+          params.game_id = gameId;
+        } else {
+          switch (filter) {
+            case 'Date':
+              if (filterStartDate > filterEndDate) {
+                setError('End date must be after start date');
+                setLoading(false);
+                return;
+              }
+              params.from = filterStartDate.toISOString();
+              params.to = filterEndDate.toISOString();
+              break;
+            case 'Game':
+              if (filterGame.length === 0) {
+                setLoading(false);
+                return;
+              }
+              params.game_name = filterGame;
+              break;
+          }
         }
+
+        const response = await listGames(params);
+        setGames(response.data);
+        setTotalGames(response.meta.total);
       } catch {
-        setError('Failed to load VODs. Please try again later.');
+        setError('Failed to load Games. Please try again later.');
       } finally {
         setLoading(false);
       }
     };
-    fetchVods();
+    fetchGames();
     return;
-  }, [limit, page, filter, filterStartDate, filterEndDate, filterGame]);
+  }, [limit, page, filter, filterStartDate, filterEndDate, filterGame, gameId]);
 
   const changeFilter = (evt) => {
     setFilter(evt.target.value);
-    //reset page to 1 when filter changes
-    navigate(`${location.pathname}?page=1`);
-  };
-
-  const handleSubmit = (e) => {
-    const value = e.target.value;
-    if (e.which === 13 && !isNaN(value) && value > 0) {
-      navigate(`${location.pathname}?page=${value}`);
-    }
+    const params = new URLSearchParams({ page: '1' });
+    if (gameId) params.set('game_id', gameId);
+    navigate(`${location.pathname}?${params}`);
   };
 
   const handleGameChange = useDebouncedSetter(setFilterGame, 500);
 
-  const totalPages = Math.ceil(totalVods / limit);
+  const totalPages = Math.ceil(totalGames / limit);
 
   return (
     <SimpleBar style={{ minHeight: 0, height: '100%' }}>
@@ -144,9 +111,9 @@ export default function Vods() {
             <Box
               sx={{ display: 'flex', justifyContent: 'center', mt: 2, flexDirection: 'column', alignItems: 'center' }}
             >
-              {totalVods !== null && (
+              {totalGames !== null && (
                 <Typography variant="h4" color="primary" sx={{ textTransform: 'uppercase', fontWeight: '550' }}>
-                  {`${totalVods} Vods`}
+                  {`${totalGames} Games`}
                 </Typography>
               )}
             </Box>
@@ -160,9 +127,20 @@ export default function Vods() {
                 alignItems: 'center',
               }}
             >
-              <FormControl sx={{ display: 'flex' }}>
+              {gameId && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<ArrowBackIcon fontSize="small" />}
+                  onClick={() => navigate('/games/library')}
+                  sx={{ mr: 2 }}
+                >
+                  Back
+                </Button>
+              )}
+              <FormControl sx={{ display: 'flex', minWidth: 120 }} disabled={!!gameId}>
                 <InputLabel id="select-label">Filter</InputLabel>
-                <Select labelId="select-label" label={filter} value={filter} onChange={changeFilter} autoWidth>
+                <Select labelId="select-label" label="Filter" value={filter} onChange={changeFilter}>
                   {FILTERS.map((data, i) => {
                     return (
                       <MenuItem key={i} value={data}>
@@ -208,64 +186,23 @@ export default function Vods() {
               )}
             </Box>
             {loading ? <Loading /> : <></>}
-            {vods && vods.length > 0 && (
+            {games && games.length > 0 && (
               <Grid
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 sx={{ mt: 2, justifyContent: 'center' }}
               >
-                {vods.map((vod) => (
-                  <Vod key={vod.id} vod={vod} isMobile={isMobile} />
+                {games.map((game) => (
+                  <Game key={game.id} game={game} isMobile={isMobile} />
                 ))}
               </Grid>
             )}
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                mt: 2,
-                mb: 2,
-                alignItems: 'center',
-                flexDirection: isMobile ? 'column' : 'row',
-              }}
-            >
-              {totalPages !== null && (
-                <>
-                  <Pagination
-                    shape="rounded"
-                    variant="outlined"
-                    count={totalPages}
-                    disabled={totalPages <= 1}
-                    color="primary"
-                    page={page}
-                    renderItem={(item) => (
-                      <PaginationItem
-                        component={Link}
-                        to={`${location.pathname}${item.page === 1 ? '' : `?page=${item.page}`}`}
-                        {...item}
-                      />
-                    )}
-                  />
-                  <TextField
-                    sx={{
-                      width: '100px',
-                      m: 1,
-                    }}
-                    size="small"
-                    type="text"
-                    onKeyDown={handleSubmit}
-                    slotProps={{
-                      input: {
-                        startAdornment: <InputAdornment position="start">Page</InputAdornment>,
-                      },
-
-                      htmlInput: { inputMode: 'numeric', pattern: '[0-9]*' },
-                    }}
-                  />
-                </>
-              )}
-            </Box>
+            <PaginationControls
+              page={page}
+              totalPages={totalPages}
+              preserveParams={gameId ? { game_id: gameId } : undefined}
+            />
           </>
         )}
       </Box>

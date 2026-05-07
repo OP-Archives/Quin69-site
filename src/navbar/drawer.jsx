@@ -10,12 +10,14 @@ import Link from '@mui/material/Link';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import BookIcon from '@mui/icons-material/Book';
 import ReportIcon from '@mui/icons-material/Report';
 
 const mainLinks = [
   { title: `Home`, path: `/`, icon: <HomeIcon color="primary" /> },
-  { title: `Vods`, path: `/vods`, icon: <OndemandVideoIcon color="primary" /> },
+  { title: `Games`, path: `/games`, icon: <SportsEsportsIcon color="primary" /> },
+  { title: `Library`, path: `/games/library`, icon: <BookIcon color="primary" /> },
   { title: `Issues`, path: `${import.meta.env.VITE_GITHUB}/issues`, icon: <ReportIcon color="primary" /> },
 ];
 
