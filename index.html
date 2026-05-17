@@ -1,50 +1,56 @@
 <!doctype html>
-<html lang="en" style="background-color: #0e0e10">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://static-cdn.jtvnw.net" />
+    <link rel="dns-prefetch" href="https://static-cdn.jtvnw.net" />
+
+    <link rel="preconnect" href="https://cdn.frankerfacez.com" />
+    <link rel="dns-prefetch" href="https://cdn.frankerfacez.com" />
+
+    <link rel="preconnect" href="https://cdn.betterttv.net" />
+    <link rel="dns-prefetch" href="https://cdn.betterttv.net" />
+
+    <link rel="preconnect" href="https://cdn.7tv.app" />
+    <link rel="dns-prefetch" href="https://cdn.7tv.app" />
+
+    <link rel="preconnect" href="%VITE_ARCHIVE_API_BASE%" crossorigin />
+    <link rel="dns-prefetch" href="%VITE_ARCHIVE_API_BASE%" />
+
+    <link rel="preload" href="/logo.jpg" as="image" type="image/jpeg" />
     <!-- HTML Meta Tags -->
     <title>Quin69</title>
-    <meta name="description" content="Watch all of Quin69's Streams with Chat Replay!" />
+    <meta name="description" content="Watch all of Quin69's Games with Chat Replay!" />
 
     <!-- Google / Search Engine Tags -->
     <meta itemprop="name" content="Quin69" />
-    <meta itemprop="description" content="Watch all of Quin69's Streams with Chat Replay!" />
+    <meta itemprop="description" content="Watch all of Quin69's Games with Chat Replay!" />
     <meta itemprop="image" content="/meta_image.png" />
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://quin69.gg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Quin69" />
-    <meta property="og:description" content="Watch all of Quin69's Streams with Chat Replay!" />
+    <meta property="og:description" content="Watch all of Quin69's Games with Chat Replay!" />
     <meta property="og:image" content="/meta_image.png" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Quin69" />
-    <meta name="twitter:description" content="Watch all of Quin69's Streams with Chat Replay!" />
+    <meta name="twitter:description" content="Watch all of Quin69's Games with Chat Replay!" />
     <meta name="twitter:image" content="/meta_image.png" />
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://static-cdn.jtvnw.net" />
-    <link rel="preconnect" href="https://cdn.frankerfacez.com" />
     <link rel="preconnect" href="https://emotes.overpowered.tv" />
-    <link rel="preconnect" href="https://cdn.7tv.app" />
+    <link rel="dns-prefetch" href="https://emotes.overpowered.tv" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run the app.</noscript>
     <div id="root"></div>
-    <script type="module" src="/src/index.jsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
