@@ -12,7 +12,7 @@ const socials = [
     icon: <DiscordIcon className="text-primary" />,
   },
   {
-    path: `https://twitter.com/quinrex`,
+    path: `https://twitter.com/Quin69`,
     icon: <TwitterIcon className="text-primary" />,
   },
   {
