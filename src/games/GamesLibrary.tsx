@@ -127,7 +127,7 @@ export default function GamesLibrary() {
 
   const paginationParams = {
     ...(searchTerm ? { search: searchTerm } : {}),
-    ...(sort !== 'count' ? { sort } : {}),
+    sort,
   };
 
   useEffect(() => {
