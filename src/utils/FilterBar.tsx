@@ -78,7 +78,6 @@ export default function FilterBar({
             ))}
           </select>
         )}
-        {extraControls && <div className="sm:hidden ml-auto">{extraControls}</div>}
       </div>
       {showDateRange &&
         onDateStartChange &&
@@ -92,28 +91,31 @@ export default function FilterBar({
           </div>
         )}
       {showSearch && (
-        <div className="relative w-full sm:flex-1 sm:min-w-0 sm:w-auto">
-          <input
-            type="text"
-            placeholder={searchPlaceholder ?? (mode === 'vods' ? 'Search by Title' : 'Search by Game')}
-            onChange={(e) => {
-              onSearchChange(e.target.value);
-              debouncedOnSearchChange?.(e.target.value);
-            }}
-            value={searchValue}
-            className="bg-bg-surface text-text-primary placeholder-text-secondary hover:border-border/80 focus:border-primary focus:ring-primary/30 h-9 w-full rounded-md border-0 px-3 pr-8 text-sm transition-all duration-200 focus:ring-1 focus:outline-none sm:w-44"
-          />
-          {searchValue && (
-            <button
-              onClick={onSearchClear}
-              className="text-text-secondary hover:text-text-primary absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
-            >
-              <X size={16} />
-            </button>
-          )}
+        <div className="flex items-stretch gap-2 sm:gap-1 w-full">
+          <div className="relative w-44 shrink-0">
+            <input
+              type="text"
+              placeholder={searchPlaceholder ?? (mode === 'vods' ? 'Search by Title' : 'Search by Game')}
+              onChange={(e) => {
+                onSearchChange(e.target.value);
+                debouncedOnSearchChange?.(e.target.value);
+              }}
+              value={searchValue}
+              className="bg-bg-surface text-text-primary placeholder-text-secondary hover:border-border/80 focus:border-primary focus:ring-primary/30 h-9 w-full rounded-md border-0 px-3 pr-8 text-sm transition-all duration-200 focus:ring-1 focus:outline-none sm:w-44"
+            />
+            {searchValue && (
+              <button
+                onClick={onSearchClear}
+                className="text-text-secondary hover:text-text-primary absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer transition-colors"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
+          <div className="flex-1" />
+          {extraControls && <div>{extraControls}</div>}
         </div>
       )}
-      <div className="hidden sm:block">{extraControls}</div>
     </div>
   );
 }
