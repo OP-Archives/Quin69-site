@@ -54,7 +54,6 @@ export default defineConfig({
             id.includes('node_modules/react-router/')
           )
             return 'react-vendor';
-          if (id.includes('@op-archives/vod-components')) return 'video-player';
           if (id.includes('@tanstack/react-query')) return 'query-vendor';
         },
       },

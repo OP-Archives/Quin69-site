@@ -36,7 +36,7 @@ export default function Navbar({ channel }: NavbarProps) {
   const isMobile = useMediaQuery('(max-width: 800px)');
 
   return (
-    <div className="flex-1">
+    <div>
       <header className="bg-dark-light shadow-lg">
         <div className="flex items-center px-4 py-2">
           <div className="flex items-center flex-1">
