@@ -10,7 +10,7 @@ export default function CustomWidthTooltip({ title, placement = 'top', children 
   if (!title) return <>{children}</>;
 
   return (
-    <div className="group relative block w-full">
+    <div className="group relative inline-flex w-full">
       {children}
 
       <div

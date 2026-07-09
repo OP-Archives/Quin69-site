@@ -8,6 +8,7 @@ import { queryClient } from './utils/queryClient';
 import NotFound from './utils/NotFound';
 import GamesPage, { gamesLoader } from './games/Games';
 import GamesLibrary, { gamesLibraryLoader } from './games/GamesLibrary';
+import Frontpage from './Frontpage';
 
 const VodPlayer = lazy(() =>
   Promise.all([import('@op-archives/vod-components'), import('@op-archives/vod-components/index.css')]).then((m) => ({
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound channel={channel} />,
     HydrateFallback: () => <Loading />,
     children: [
-      { path: '/', loader: gamesLoader, element: <GamesPage /> },
+      { path: '/', element: <Frontpage /> },
       { path: '/games', loader: gamesLoader, element: <GamesPage /> },
       { path: '/games/library', loader: gamesLibraryLoader, element: <GamesLibrary /> },
     ],
