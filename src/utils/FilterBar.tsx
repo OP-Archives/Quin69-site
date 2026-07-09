@@ -85,14 +85,13 @@ export default function FilterBar({
         dateStartValue !== undefined &&
         dateEndValue !== undefined &&
         !gameId && (
-          <div className="flex w-full items-center gap-2 sm:w-auto sm:gap-1">
+          <div className="flex w-full items-center gap-2 sm:ml-1 sm:w-auto sm:gap-1">
             <DatePicker value={dateStartValue} onChange={onDateStartChange} maxDate={maxDate} minDate={minDate} />
             <DatePicker value={dateEndValue} onChange={onDateEndChange} maxDate={maxDate} minDate={minDate} />
           </div>
         )}
       {showSearch && (
-        <div className="flex items-stretch gap-2 sm:gap-1 w-full">
-          <div className="relative w-44 shrink-0">
+        <div className="relative w-full sm:ml-1 sm:w-auto">
             <input
               type="text"
               placeholder={searchPlaceholder ?? (mode === 'vods' ? 'Search by Title' : 'Search by Game')}
@@ -111,9 +110,6 @@ export default function FilterBar({
                 <X size={16} />
               </button>
             )}
-          </div>
-          <div className="flex-1" />
-          {extraControls && <div>{extraControls}</div>}
         </div>
       )}
     </div>
