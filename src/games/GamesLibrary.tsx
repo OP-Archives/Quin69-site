@@ -11,7 +11,6 @@ import Loading from '../utils/Loading';
 import PaginationControls from '../utils/PaginationControls';
 import { queryClient } from '../utils/queryClient';
 import { useGamesLibrary, prefetchNextPageGamesLibrary } from '../utils/useGamesLibrary';
-import { useMediaQuery } from '../utils/useMediaQuery';
 import GameCard from './GameCard';
 
 export const gamesLibraryLoader = async ({ request }: LoaderFunctionArgs) => {
@@ -44,7 +43,6 @@ const FILTERS = ['Recently Played', 'Most Played', 'Game Name'];
 export default function GamesLibrary() {
   const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
-  const isMobile = useMediaQuery('(max-width: 900px)');
   const location = useLocation();
 
   const scrollRef = useRef<SimpleBarCore | null>(null);
@@ -52,7 +50,7 @@ export default function GamesLibrary() {
   const searchTerm = searchParams.get('search') || '';
   const sort = searchParams.get('sort') || 'recent';
   const page = parseInt(searchParams.get('page') || '1', 10);
-  const limit = isMobile ? 10 : 20;
+  const limit = 20;
 
   const [inputSearch, setInputSearch] = useState(searchTerm);
   const isTypingRef = useRef(false);

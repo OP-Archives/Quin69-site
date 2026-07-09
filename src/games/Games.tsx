@@ -8,7 +8,6 @@ import Footer from '../utils/Footer';
 import Loading from '../utils/Loading';
 import PaginationControls from '../utils/PaginationControls';
 import { queryClient } from '../utils/queryClient';
-import { useMediaQuery } from '../utils/useMediaQuery';
 import { useGames, prefetchNextPageGames } from '../utils/useGames';
 import { listGames, type GameData } from '../utils/archive-client';
 import Game from './Game';
@@ -63,7 +62,6 @@ const FORMATTED_START = START_DATE ? new Date(START_DATE).toISOString().split('T
 export default function GamesPage() {
   const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
-  const isMobile = useMediaQuery('(max-width: 900px)');
   const location = useLocation();
   const todayString = new Date().toISOString().split('T')[0];
 
@@ -75,7 +73,7 @@ export default function GamesPage() {
   const filterGame = searchParams.get('game') || '';
   const page = parseInt(searchParams.get('page') || '1', 10);
   const gameId = searchParams.get('game_id');
-  const limit = isMobile ? 10 : 20;
+  const limit = 20;
 
   const memoizedDateRange = (() => {
     if (filter !== 'Date' || !filterStartDate || !filterEndDate) return null;
@@ -284,10 +282,10 @@ export default function GamesPage() {
 
         {games && games.length > 0 && (
           <div
-            className={`max-w-[1600px] mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-2 transition-opacity duration-200 ${isBackgroundFetching ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
+            className={`max-w-[1600px] mx-auto grid grid-cols-1 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-2 transition-opacity duration-200 ${isBackgroundFetching ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
           >
             {games.map((game: GameData, index: number) => (
-              <Game key={game.id} game={game} isMobile={isMobile} priority={index < (isMobile ? 4 : 10)} />
+              <Game key={game.id} game={game} priority={index < 10} />
             ))}
           </div>
         )}

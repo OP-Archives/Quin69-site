@@ -25,18 +25,15 @@ interface GameProps {
     chapter_image?: string;
     game_name?: string;
   };
-  isMobile?: boolean;
   priority?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Game({ game, isMobile: _isMobile, priority: _priority }: GameProps) {
+export default function Game({ game, priority: _priority }: GameProps) {
   const gameRoute = `/games/${game.vod_id}?game_id=${game.id}`;
 
   return (
-    <div className="max-w-[20rem] flex-basis-[20rem]">
-      <div className="block w-full min-w-0 cursor-pointer">
-        <div className="overflow-visible rounded-md border border-transparent bg-[#16161e]/80 p-3 transition-all hover:border-[#222230] hover:bg-[#16161e]">
+    <div className="mb-2 block w-full min-w-0">
+      <div className="overflow-visible rounded-md border border-transparent bg-[#16161e]/80 p-3 transition-all hover:border-[#222230] hover:bg-[#16161e]">
           <motion.div
             className="group relative aspect-video w-full bg-primary shadow-[0_8px_20px_rgba(254,254,254,0)]"
             variants={cardHoverVariants}
@@ -98,6 +95,5 @@ export default function Game({ game, isMobile: _isMobile, priority: _priority }:
           </div>
         </div>
       </div>
-    </div>
   );
 }
