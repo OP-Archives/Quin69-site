@@ -14,7 +14,7 @@ interface DrawerProps {
 const mainLinks = [
   { title: `Home`, path: `/`, icon: <Home className="text-primary" size={20} /> },
   { title: `Games`, path: `/games`, icon: <Gamepad2 className="text-primary" size={20} /> },
-  { title: 'Library', path: '/games/library', icon: <BookOpen className="text-primary" size={20} /> },
+  { title: 'Library', path: '/library', icon: <BookOpen className="text-primary" size={20} /> },
   {
     title: `Issues`,
     path: `${import.meta.env.VITE_GITHUB}/issues`,

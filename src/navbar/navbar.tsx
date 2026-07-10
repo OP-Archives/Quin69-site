@@ -78,7 +78,7 @@ export default function Navbar({ channel }: NavbarProps) {
                 </CustomLink>
               </div>
               <div className="mr-2">
-                <CustomLink href="/games/library">
+                <CustomLink href="/library">
                   <div className="flex justify-center items-center gap-1">
                     <Library className="text-primary mr-0.5" size={24} />
                     <span className="text-primary font-semibold text-lg">Library</span>

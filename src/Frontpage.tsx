@@ -58,7 +58,7 @@ export default function Frontpage() {
             <div className="bg-dark-light border border-gray-700 rounded p-2 w-full">
               <div className="flex items-center justify-between mb-3">
                 <h6 className="text-primary font-semibold">Most Played Games</h6>
-                <CustomLink href="/games/library?sort=count" className="text-primary text-sm hover:underline">
+                <CustomLink href="/library?sort=count" className="text-primary text-sm hover:underline">
                   See all →
                 </CustomLink>
               </div>
