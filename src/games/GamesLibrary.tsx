@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { queryClient } from '../utils/queryClient';
 import { X } from 'lucide-react';
 import { useEffect, useState, useRef, useMemo } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
@@ -17,7 +17,6 @@ import GameCard from './GameCard';
 const SORTS = ['Recently Played', 'Most Played', 'Game Name'];
 
 export default function GamesLibrary() {
-  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const isMobile = useMediaQuery('(max-width: 900px)');
   const location = useLocation();
